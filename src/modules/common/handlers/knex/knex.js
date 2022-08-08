@@ -8,11 +8,11 @@ const knex = require('knex')({
       port: process.env.WRITER_MYSQL_PORT,
       password: process.env.WRITER_MYSQL_PASS,
       database: 'main'
-  },
-  pool: {
-    min: 1,
-    max: 4,
-  },
+    },
+    pool: {
+      min: 1,
+      max: 4,
+    }
 });
 
 const getTransaction = async () => {
@@ -22,7 +22,7 @@ const getTransaction = async () => {
     return {transaction};
 }
 
-const commitTransaction = ({ transaction }) => transaction.rollback();
+const commitTransaction = ({ transaction }) => transaction.commit();
 
 const rollbackTransaction = ({ transaction }) => transaction.rollback();
 
