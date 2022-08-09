@@ -21,9 +21,7 @@ const updateUserService = async ({
         throw new Error("Missing user to update")
     }
 
-    const [user_to_update] = users;
-
-    const crypt_password = bcrypt.hashSync(user_to_update.user_password, salt);
+    const crypt_password = bcrypt.hashSync(user_password, salt);
 
     await updateUserRepositories({
         id,
@@ -36,7 +34,7 @@ const updateUserService = async ({
         updatedUser: {
             id,
             user_email,
-            user_password,
+            user_password: crypt_password,
             full_name
         }
     };
