@@ -1,4 +1,4 @@
-const { 
+const {
     client
 } = require('../../../common/handlers')
 
@@ -10,16 +10,14 @@ const getPostByUserIdRepositories = async ({
 
     const has_response = Array.isArray(response) && response.length > 0;
 
-    if(!has_response){
+    if (!has_response) {
         return {
             posts: []
         }
     }
 
-    const posts = response.forEach(post => post);
-
     return {
-        posts
+        posts: response
     }
 
 }
