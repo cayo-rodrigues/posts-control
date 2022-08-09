@@ -1,3 +1,4 @@
+const { getUserByIdService } = require("../../User/getUserByIdService/getUserByIdService");
 const { getPostByPostIdRepositories, updatePostRepositories } = require("../../../repositories");
 
 const updatePostService = async ({
@@ -18,6 +19,18 @@ const updatePostService = async ({
         throw new Error("Hasn't post to update")
     }
 
+    const {
+        user = []
+    } = await getUserByIdService({
+        user_id: author_id
+    });
+
+    const has_author = Array.isArray(user) && user.length === 1;
+
+    if (!has_author) {
+        throw new Error("Hasn't author in database")
+    }
+
     await updatePostRepositories({
         id,
         author_id,
@@ -25,7 +38,7 @@ const updatePostService = async ({
     })
 
     return {
-        updatedpost: {
+        updatedPost: {
             id,
             author_id,
             post_text

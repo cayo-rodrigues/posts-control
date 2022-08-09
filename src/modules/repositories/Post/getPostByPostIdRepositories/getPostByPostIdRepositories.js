@@ -1,8 +1,6 @@
-const { 
-    client,
+const {
     getTransaction,
 } = require('../../../common/handlers');
-
 
 
 const getPostByPostIdRepositories = async ({
@@ -12,9 +10,9 @@ const getPostByPostIdRepositories = async ({
 
     const response = await transaction('posts').where({ id: post_id })
 
-    const has_response = Array.isArray(response) && response.length === 0;
+    const has_response = Array.isArray(response) && response.length === 1;
 
-    if(!has_response){
+    if (!has_response) {
         return {
             posts: []
         }
@@ -23,7 +21,6 @@ const getPostByPostIdRepositories = async ({
     return {
         posts: response
     }
-
 }
 
 module.exports = {
