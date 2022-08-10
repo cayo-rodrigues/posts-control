@@ -1,6 +1,7 @@
 const { getUserByIdService } = require("../../User/getUserByIdService/getUserByIdService");
 const { getPostByPostIdRepositories, updatePostRepositories } = require("../../../repositories");
 const { ApplicationError } = require("../../../common/errors/application-error");
+const httpStatusCodes = require('http-status-codes');
 
 const updatePostService = async ({
     id,
@@ -17,7 +18,7 @@ const updatePostService = async ({
     const has_post = Array.isArray(posts) && posts.length === 1;
 
     if (!has_post) {
-        throw new ApplicationError(404, "Hasn't post to update")
+        throw new ApplicationError(httpStatusCodes.NOT_FOUND, "Hasn't post to update")
     }
 
     const {
@@ -29,7 +30,7 @@ const updatePostService = async ({
     const has_author = Array.isArray(user) && user.length === 1;
 
     if (!has_author) {
-        throw new ApplicationError(404, "Hasn't author in database")
+        throw new ApplicationError(httpStatusCodes.NOT_FOUND, "Hasn't author in database")
     }
 
     await updatePostRepositories({
