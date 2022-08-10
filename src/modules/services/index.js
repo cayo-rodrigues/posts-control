@@ -5,7 +5,7 @@ module.exports = Object.freeze({
     ...require('./User/deleteUserService/deleteUserService'),
     ...require('./User/updateUserService/updateUserService'),
     ...require('./Post/createPostService/createPostService'),
-    ...require('./Post/listPostService/listPostService'),
+    ...require('./Post/listPostsService/listPostsService'),
     ...require('./Post/deletePostService/deletePostService'),
     ...require('./Post/updatePostService/updatePostService')
 })

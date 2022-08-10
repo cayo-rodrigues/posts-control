@@ -2,8 +2,8 @@
 
 const httpStatusCodes = require('http-status-codes');
 const { httpErrorHandler } = require('../../common/handlers');
-const { 
-    getPostByUserIdService 
+const {
+    listPostsService
 } = require('../../services');
 
 const listPostHandler = async (req, res, next) => {
@@ -11,10 +11,10 @@ const listPostHandler = async (req, res, next) => {
         const {
             user_id
         } = req.query;
-        
+
         const {
             posts
-        } = await getPostByUserIdService({
+        } = await listPostsService({
             user_id
         })
 
