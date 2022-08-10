@@ -1,5 +1,6 @@
 const { getUserByIdService } = require("../../User/getUserByIdService/getUserByIdService");
 const { createPostRepositories } = require("../../../repositories");
+const { ApplicationError } = require("../../../common/errors/application-error");
 
 const createPostService = async (post) => {
 
@@ -16,7 +17,7 @@ const createPostService = async (post) => {
     const has_author = Array.isArray(user) && user.length > 0;
 
     if(has_author === false) {
-        throw new Error("Hasn't author in database")
+        throw new ApplicationError(404, "Hasn't author in database")
     }
 
     const {
