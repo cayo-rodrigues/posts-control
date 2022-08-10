@@ -33,6 +33,12 @@ const updatePostService = async ({
         throw new ApplicationError(httpStatusCodes.NOT_FOUND, "Hasn't author in database")
     }
 
+    const post_belongs_to_author = user[0].id === posts[0].author_id
+
+    if (!post_belongs_to_author) {
+        throw new ApplicationError(httpStatusCodes.FORBIDDEN, "Can't change a post's author")
+    }
+
     await updatePostRepositories({
         id,
         author_id,
