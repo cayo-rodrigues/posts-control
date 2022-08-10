@@ -4,19 +4,23 @@ const uuid = require('uuid');
 const httpErrorHandler = ({ req, res, error }) => {
 
   const response_status_code = error.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR;
-  const is_internal = error.statusCode === httpStatusCodes.INTERNAL_SERVER_ERROR;
+  const is_internal = response_status_code === httpStatusCodes.INTERNAL_SERVER_ERROR;
   const error_id = uuid.v4();
 
-  const response = {
-    type: `internal server error (${error_id})`,
-  };
+  const response = {};
 
   if (!is_internal) {
     Object.assign(response, {
       message: error.message,
       details: error.details || error,
     });
+  } else {
+    Object.assign(response, {
+      type: `internal server error (${error_id})`,
+    })
   }
+
+
   const error_context = {
     error: String(error),
     error_id,

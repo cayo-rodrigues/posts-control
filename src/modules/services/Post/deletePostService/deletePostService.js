@@ -1,4 +1,6 @@
+const { ApplicationError } = require("../../../common/errors/application-error");
 const { getPostByPostIdRepositories, deletePostRepositories } = require("../../../repositories");
+const httpStatusCodes = require('http-status-codes');
 
 const deletePostService = async ({
     post_id
@@ -13,7 +15,7 @@ const deletePostService = async ({
     const has_post = Array.isArray(posts) && posts.length === 1;
 
     if(!has_post){
-        throw new Error("Hasn't post to delete")
+        throw new ApplicationError(httpStatusCodes.NOT_FOUND, "Hasn't post to delete")
     }
 
     const [post_to_delete] = posts;
